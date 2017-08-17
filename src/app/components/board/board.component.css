@@ -1,0 +1,15 @@
+td {
+    border:1px solid;
+}
+
+.cell-white {
+    width: 15px;
+    height: 15px;
+    background: white;
+}
+
+.cell-black {
+    width: 15px;
+    height: 15px;
+    background: black; 
+}

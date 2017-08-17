@@ -1,0 +1,12 @@
+<table>
+  <tr *ngFor="let row of board">
+    <td *ngFor="let cell of row">
+      <div *ngIf="cell.getIsBlack()">
+        <div class="cell-black"></div>
+      </div>
+      <div *ngIf="!cell.getIsBlack()">
+        <div class="cell-white"></div>
+      </div>
+    </td>
+  </tr>
+</table>
