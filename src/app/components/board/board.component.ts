@@ -22,6 +22,7 @@ export class BoardComponent implements OnInit {
   }
 
   private startGame(): void {
+    console.log('start game');
     setInterval(() => {
       this._boardService.moveAnt();
       this.board = this._boardService.getBoard();

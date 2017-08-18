@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Cell } from '../../pojo/cell';
 import { Directions } from '../../enumerations/directions';
+import { Colors } from '../../enumerations/colors';
+
 
 @Injectable()
 export class BoardService {
@@ -12,11 +14,11 @@ export class BoardService {
   public initializeBoard(): void {
     for (let row = 0; row < 20; row++) {
       this.board[row] = [];
-      for (let column = 0; column <  20; column++) {
-        this.board[row][column] = new Cell(false, false, Directions.NOT_DEFINED);
+      for (let column = 0; column < 20; column++) {
+        this.board[row][column] = new Cell(false, Colors.WHITE, Directions.NOT_DEFINED);
       }
     }
-    this.board[Math.floor(this.board.length / 2)][Math.floor(this.board.length / 2)] = new Cell(true, true, Directions.LEFT);
+    this.board[Math.floor(this.board.length / 2)][Math.floor(this.board.length / 2)] = new Cell(true, Colors.WHITE, Directions.LEFT);
   }
 
   public getBoard(): Cell[][] {
@@ -27,72 +29,85 @@ export class BoardService {
     for (let row = 0; row < 20; row++) {
       for (let column = 0; column < 20; column++) {
         if (this.board[row][column].getHasAnt()) {
+          console.log(this.board[row][column]);
+          console.log('color: ' + this.board[row][column].getColor());
           switch (this.board[row][column].getDirection()) {
+
             case Directions.UP:
-              if (!this.board[row - 1][column].getIsBlack()) {
-                if (!this.board[row][column + 1].getIsBlack()) {
-                  this.board[row][column + 1] = new Cell(true, true, Directions.RIGTH);
+              if (this.board[row][column].getColor() === Colors.WHITE) {
+                this.board[row][column] = new Cell(false, Colors.BLACK, Directions.NOT_DEFINED);
+                if (this.board[row][column + 1].getColor() === Colors.WHITE) {
+                  this.board[row][column + 1] = new Cell(true, Colors.WHITE, Directions.RIGTH);
                 } else {
-                  this.board[row][column + 1] = new Cell(true, false, Directions.RIGTH);
+                  this.board[row][column + 1] = new Cell(true, Colors.BLACK, Directions.RIGTH);
                 }
               } else {
-                if (!this.board[row][column - 1].getIsBlack()) {
-                  this.board[row][column - 1] = new Cell(true, true, Directions.LEFT);
+                this.board[row][column] = new Cell(false, Colors.WHITE, Directions.NOT_DEFINED);
+                if (this.board[row][column - 1].getColor() === Colors.WHITE) {
+                  this.board[row][column - 1] = new Cell(true, Colors.WHITE, Directions.LEFT);
                 } else {
-                  this.board[row][column - 1] = new Cell(true, false, Directions.LEFT);
+                  this.board[row][column - 1] = new Cell(true, Colors.BLACK, Directions.LEFT);
                 }
               }
               break;
+
             case Directions.RIGTH:
-              if (!this.board[row][column + 1].getIsBlack()) {
-                if (!this.board[row + 1][column].getIsBlack()) {
-                  this.board[row + 1][column] = new Cell(true, true, Directions.DOWN);
+              if (this.board[row][column].getColor() === Colors.WHITE) {
+                this.board[row][column] = new Cell(false, Colors.BLACK, Directions.NOT_DEFINED);
+                if (this.board[row + 1][column].getColor() === Colors.WHITE) {
+                  this.board[row + 1][column] = new Cell(true, Colors.WHITE, Directions.DOWN);
                 } else {
-                  this.board[row + 1][column] = new Cell(true, false, Directions.DOWN);
+                  this.board[row + 1][column] = new Cell(true, Colors.BLACK, Directions.DOWN);
                 }
               } else {
-                if (!this.board[row - 1][column].getIsBlack()) {
-                  this.board[row - 1][column] = new Cell(true, true, Directions.UP);
+                this.board[row][column] = new Cell(false, Colors.WHITE, Directions.NOT_DEFINED);
+                if (this.board[row + 1][column].getColor() === Colors.WHITE) {
+                  this.board[row + 1][column] = new Cell(true, Colors.WHITE, Directions.UP);
                 } else {
-                  this.board[row - 1][column] = new Cell(true, false, Directions.UP);
+                  this.board[row + 1][column] = new Cell(true, Colors.BLACK, Directions.UP);
                 }
               }
               break;
-            case Directions.DOWN:
-              if (!this.board[row + 1][column].getIsBlack()) {
-                if (!this.board[row][column - 1].getIsBlack()) {
-                  this.board[row][column - 1] = new Cell(true, true, Directions.LEFT);
+
+              case Directions.DOWN:
+              if (this.board[row][column].getColor() === Colors.WHITE) {
+                this.board[row][column] = new Cell(false, Colors.BLACK, Directions.NOT_DEFINED);
+                if (this.board[row][column - 1].getColor() === Colors.WHITE) {
+                  this.board[row][column - 1] = new Cell(true, Colors.WHITE, Directions.LEFT);
                 } else {
-                  this.board[row][column - 1] = new Cell(true, false, Directions.LEFT);
+                  this.board[row][column - 1] = new Cell(true, Colors.BLACK, Directions.LEFT);
                 }
               } else {
-                if (!this.board[row][column + 1].getIsBlack()) {
-                  this.board[row][column + 1] = new Cell(true, true, Directions.RIGTH);
+                this.board[row][column] = new Cell(false, Colors.WHITE, Directions.NOT_DEFINED);
+                if (this.board[row][column + 1].getColor() === Colors.WHITE) {
+                  this.board[row][column + 1] = new Cell(true, Colors.WHITE, Directions.RIGTH);
                 } else {
-                  this.board[row][column + 1] = new Cell(true, false, Directions.RIGTH);
+                  this.board[row][column + 1] = new Cell(true, Colors.BLACK, Directions.RIGTH);
                 }
               }
               break;
-            case Directions.LEFT:
-              if (!this.board[row][column - 1].getIsBlack()) {
-                if (!this.board[row - 1][column].getIsBlack()) {
-                  this.board[row - 1][column] = new Cell(true, true, Directions.UP);
+
+              case Directions.LEFT:
+              if (this.board[row][column].getColor() === Colors.WHITE) {
+                this.board[row][column] = new Cell(false, Colors.BLACK, Directions.NOT_DEFINED);
+                if (this.board[row - 1][column].getColor() === Colors.WHITE) {
+                  this.board[row - 1][column] = new Cell(true, Colors.WHITE, Directions.UP);
                 } else {
-                  this.board[row - 1][column] = new Cell(true, false, Directions.UP);
+                  this.board[row - 1][column] = new Cell(true, Colors.BLACK, Directions.UP);
                 }
               } else {
-                if (!this.board[row + 1][column].getIsBlack()) {
-                  this.board[row + 1][column] = new Cell(true, true, Directions.DOWN);
+                this.board[row][column] = new Cell(false, Colors.WHITE, Directions.NOT_DEFINED);
+                if (this.board[row + 1][column].getColor() === Colors.WHITE) {
+                  this.board[row + 1][column] = new Cell(true, Colors.WHITE, Directions.DOWN);
                 } else {
-                  this.board[row + 1][column] = new Cell(true, false, Directions.DOWN);
+                  this.board[row + 1][column] = new Cell(true, Colors.BLACK, Directions.DOWN);
                 }
               }
               break;
           }
-          this.board[row][column] = new Cell(false, true, Directions.NOT_DEFINED);
+          row = 20; column = 20;
         }
       }
     }
   }
-
 }

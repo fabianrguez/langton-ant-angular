@@ -1,14 +1,15 @@
 import { Directions } from '../enumerations/directions';
+import { Colors } from '../enumerations/colors';
 
 export class Cell {
 
     private hasAnt: boolean;
-    private isBlack: boolean;
+    private color: Colors;
     private direction: Directions;
 
-    constructor(private _hasAnt: boolean, private _isBlack: boolean, private _direction: Directions) {
+    constructor(private _hasAnt: boolean, private _color: Colors, private _direction: Directions) {
         this.hasAnt = this._hasAnt;
-        this.isBlack = this._isBlack;
+        this.color = this._color;
         this.direction = this._direction;
     }
 
@@ -16,19 +17,23 @@ export class Cell {
         return this.hasAnt;
     }
 
-    public getIsBlack(): boolean {
-        return this.isBlack;
+    public getColor(): Colors {
+        return this.color;
     }
 
     public setHasAnt(_hasAnt: boolean): void {
         this.hasAnt = this._hasAnt;
     }
 
-    public setIsBlack(_isBlack: boolean): void {
-        this.isBlack = this._isBlack;
+    public setColor(_color: Colors): void {
+        this.color = this._color;
     }
 
     public getDirection(): Directions {
         return this.direction;
+    }
+
+    public setDirection(_direction: Directions): void {
+        this.direction = this._direction;
     }
 }
