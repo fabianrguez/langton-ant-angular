@@ -29,8 +29,6 @@ export class BoardService {
     for (let row = 0; row < 20; row++) {
       for (let column = 0; column < 20; column++) {
         if (this.board[row][column].getHasAnt()) {
-          console.log(this.board[row][column]);
-          console.log('color: ' + this.board[row][column].getColor());
           switch (this.board[row][column].getDirection()) {
 
             case Directions.UP:
